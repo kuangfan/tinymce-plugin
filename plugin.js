@@ -25,6 +25,13 @@ tinymce.PluginManager.add('example', function (editor, url) {
       ],
       onAction (api, details) {
         console.log(api, details)
+        switch (details.name) {
+          case 'insert':
+            api.sendMessage('insert')
+            break
+          default:
+            break
+        }
       }
     })
   }

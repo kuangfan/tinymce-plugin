@@ -1,34 +1,30 @@
 // eslint-disable-next-line no-undef
 tinymce.PluginManager.add('example', function (editor, url) {
+  const dialogOptions = {
+    width: 600,
+    height: 400
+  }
+
   const openDialog = function () {
-    return editor.windowManager.open({
+    return editor.windowManager.openUrl({
       title: '这里是弹窗标题',
-      body: {
-        type: 'panel',
-        items: [
-          {
-            type: 'input',
-            name: 'title',
-            label: 'Title'
-          }
-        ]
-      },
+      url: 'http://localhost:8080',
+      width: dialogOptions.width,
+      height: dialogOptions.height,
       buttons: [
         {
-          type: 'cancel',
-          text: 'Close'
+          type: 'custom',
+          text: '插入',
+          name: 'insert',
+          buttonType: 'primary'
         },
         {
-          type: 'submit',
-          text: 'Save',
-          primary: true
+          type: 'cancel',
+          text: '取消'
         }
       ],
-      onSubmit: function (api) {
-        const data = api.getData()
-        // 将输入框内容插入到内容区光标位置
-        editor.insertContent('插入的文字是: ' + data.title)
-        api.close()
+      onAction (api, details) {
+        console.log(api, details)
       }
     })
   }
@@ -40,20 +36,12 @@ tinymce.PluginManager.add('example', function (editor, url) {
     }
   })
 
-  // 注册一个菜单项名称 menu/menubar
-  editor.ui.registry.addMenuItem('example', {
-    text: 'Example菜单名',
-    onAction: function () {
-      openDialog()
-    }
-  })
-
   return {
     getMetadata: function () {
       return {
         // 插件名和链接会显示在“帮助”→“插件”→“已安装的插件”中
-        name: 'Example plugin', // 插件名称
-        url: 'http://exampleplugindocsurl.com' // 作者网址
+        name: 'kuangfan', // 插件名称
+        url: 'https://github.com/kuangfan/tinymce-plugin' // 作者网址
       }
     }
   }

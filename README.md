@@ -7,7 +7,8 @@
 npm run dev
 ```
 ## 插件整体调试
-在浏览器访问demo文件夹下的test.html
+先执行npm run dev启动内嵌页
+再在浏览器访问demo文件夹下的test.html
 
 ## 插件打包
 ```
